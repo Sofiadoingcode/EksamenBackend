@@ -36,7 +36,7 @@ public class Utility {
 //        printAllProperties();
         
         //Test json2DTO and back again
-       
+
     }
 
 }
