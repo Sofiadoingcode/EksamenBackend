@@ -8,6 +8,7 @@ import facades.ProjectHoursFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -39,4 +40,11 @@ public class ProjectHoursResource {
     }
 
 
+    @DELETE
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deletePH(@PathParam("id") Long phID) throws EntityNotFoundException {
+        ProjectHoursDTO deleted = FACADE.deletePH(phID);
+        return Response.ok().entity(GSON.toJson(deleted)).build();
+    }
 }

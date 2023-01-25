@@ -204,4 +204,15 @@ public class ProjectHoursResourceTest {
         assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1), new ProjectHoursDTO(ph2)));
     }
 
+    @Test
+    public void testDeletePH() {
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id", ph3.getId())
+                .delete("ph/{id}")
+                .then()
+                .statusCode(200)
+                .body("id",equalTo(ph3.getId().intValue()));
+    }
+
 }
