@@ -33,7 +33,7 @@ public class ProjectHoursResource {
     @GET
     @Path("project/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getAllBoatsInHarbour(@PathParam("id") Long projectID) {
+    public Response getAllProjectHoursOnProject(@PathParam("id") Long projectID) {
         List<ProjectHoursDTO> phsDTOs= FACADE.getAllPHFromProject(projectID);
         return Response.ok().entity(GSON.toJson(phsDTOs)).build();
     }
