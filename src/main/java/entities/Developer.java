@@ -37,7 +37,7 @@ public class Developer {
     public Developer() {
     }
 
-    public Developer(String name, String phone, Long billingPrHour) {
+    public Developer(String name, String phone, Double billingPrHour) {
         this.name = name;
         this.phone = phone;
         this.billingPrHour = billingPrHour;

@@ -37,6 +37,14 @@ public class ProjectHours {
         this.description = description;
     }
 
+    public ProjectHours(double hoursSpent, Long userStory, String description, Developer developer, Project project) {
+        this.hoursSpent = hoursSpent;
+        this.userStory = userStory;
+        this.description = description;
+        this.developer = developer;
+        this.project = project;
+    }
+
     public ProjectHours(ProjectHoursDTO projectHoursDTO) {
         if (projectHoursDTO.getId() != null)
             this.id = projectHoursDTO.getId();
