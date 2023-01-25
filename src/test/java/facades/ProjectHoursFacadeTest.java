@@ -8,6 +8,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -125,8 +126,17 @@ public class ProjectHoursFacadeTest {
     }
 
     @Test
+    public void testGetAllPHs(){
+        System.out.println("Testing");
+        System.out.println(facade.getAllPH());
+        assertEquals(3, facade.getAllPH().size());
+
+    }
+
+
+    @Test
     public void testCreateProjectHours(){
-        System.out.println("Testing create boat");
+
         ProjectHours expected = ph4;
         ProjectHoursDTO phDTO = facade.createProjectHours(new ProjectHoursDTO(ph4), d4.getId(), p2.getId());
         ProjectHours actual = new ProjectHours(phDTO);
@@ -136,13 +146,23 @@ public class ProjectHoursFacadeTest {
 
     @Test
     public void testGetProjectHoursOnProject(){
-        System.out.println("Testing");
+
         List<ProjectHoursDTO> actual = facade.getAllPHFromProject(p1.getId());
         System.out.println(actual);
         assert(actual.contains(new ProjectHoursDTO(ph1)));
         assert(actual.contains(new ProjectHoursDTO(ph2)));
     }
 
+    @Test
+    void testDeletePH() throws EntityNotFoundException {
+
+        ProjectHoursDTO phDTO = facade.deletePH(ph3.getId());
+        ProjectHours ph = new ProjectHours(phDTO);
+        int expected = 2;
+        int actual = facade.getAllPH().size();
+        assertEquals(expected, actual);
+        assertEquals(ph,ph3);
+    }
 
 
 

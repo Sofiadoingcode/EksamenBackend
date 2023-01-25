@@ -37,4 +37,6 @@ public class ProjectHoursResource {
         List<ProjectHoursDTO> phsDTOs= FACADE.getAllPHFromProject(projectID);
         return Response.ok().entity(GSON.toJson(phsDTOs)).build();
     }
+
+
 }

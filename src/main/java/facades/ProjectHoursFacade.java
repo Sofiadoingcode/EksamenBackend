@@ -33,6 +33,19 @@ public class ProjectHoursFacade {
         return emf.createEntityManager();
     }
 
+    public List<ProjectHoursDTO> getAllPH () {
+        EntityManager em = emf.createEntityManager();
+        Query queryListProjects = em.createQuery("SELECT ph FROM ProjectHours ph", ProjectHours.class);
+        List<ProjectHours> listPHs = queryListProjects.getResultList();
+
+        List<ProjectHoursDTO> phDTOS = new ArrayList<>();
+        for (int i = 0; i < listPHs.size(); i++) {
+            phDTOS.add(new ProjectHoursDTO(listPHs.get(i)));
+        }
+        return phDTOS;
+
+    }
+
     public List<ProjectHoursDTO> getAllPHFromProject(Long projectID) {
             EntityManager em = getEntityManager();
             Query queryListPHs = em.createQuery("SELECT ph FROM ProjectHours ph WHERE ph.project.id = :project_id ", ProjectHours.class);
@@ -63,6 +76,21 @@ public class ProjectHoursFacade {
             em.close();
         }
         return new ProjectHoursDTO(ph);
+    }
+
+    public ProjectHoursDTO deletePH(Long phID) {
+        EntityManager em = getEntityManager();
+        ProjectHoursDTO phDTO;
+        try {
+            em.getTransaction().begin();
+            ProjectHours ph = em.find(ProjectHours.class, phID);
+            phDTO = new ProjectHoursDTO(ph);
+            em.remove(ph);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return phDTO;
     }
 
 
