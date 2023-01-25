@@ -40,7 +40,8 @@ public class User implements Serializable {
     return rolesAsStrings;
   }
 
-  @OneToOne(mappedBy = "user")
+  @OneToOne
+  @JoinColumn(name = "developer_id", referencedColumnName = "id")
   private Developer developer;
 
   public User() {}

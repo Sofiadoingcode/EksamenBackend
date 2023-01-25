@@ -75,5 +75,19 @@ public class ProjectFacade {
 
     }
 
+    public List<ProjectDTO> getAllProjectsOnDev (Long devID) {
+        EntityManager em = emf.createEntityManager();
+        Query queryListProjects = em.createQuery("SELECT p FROM Project  p INNER JOIN p.developers d WHERE d.id = :dev_id" , Project.class);
+        queryListProjects.setParameter("dev_id", devID);
+        List<Project> listProjects = queryListProjects.getResultList();
+
+        List<ProjectDTO> projects = new ArrayList<>();
+        for (int i = 0; i < listProjects.size(); i++) {
+            projects.add(new ProjectDTO(listProjects.get(i)));
+        }
+        return projects;
+
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package dtos;
 
 import entities.Developer;
+import entities.User;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,6 +16,8 @@ public class DeveloperDTO implements Serializable {
 
     private Double billingPrHour;
 
+    private User user;
+
 
     public DeveloperDTO () {
 
@@ -27,6 +30,7 @@ public class DeveloperDTO implements Serializable {
         this.name = developer.getName();
         this.phone = developer.getPhone();
         this.billingPrHour = developer.getBillingPrHour();
+        this.user = developer.getUser();
 
     }
 
@@ -63,7 +67,13 @@ public class DeveloperDTO implements Serializable {
         this.billingPrHour = billingPrHour;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {

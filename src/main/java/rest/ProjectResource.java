@@ -28,6 +28,14 @@ public class ProjectResource {
         return Response.ok().entity(GSON.toJson(projectDTOs)).build();
     }
 
+    @GET
+    @Path("dev/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllOwnersOnBoat(@PathParam("id") Long devID) {
+        List<ProjectDTO> projectDTOS= FACADE.getAllProjectsOnDev(devID);
+        return Response.ok().entity(GSON.toJson(projectDTOS)).build();
+    }
+
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
@@ -38,11 +46,13 @@ public class ProjectResource {
     }
 
     @PUT
-    @Path("dev/{dev_id}/{project_id}")
+    @Path("connectdev/{dev_id}/{project_id}")
     @Produces({MediaType.APPLICATION_JSON})
     public Response deleteBoat(@PathParam("dev_id") Long devID, @PathParam("project_id") Long projectID) throws EntityNotFoundException {
         ProjectDTO updated = FACADE.addDeveloperToProject(devID, projectID);
         return Response.ok().entity(GSON.toJson(updated)).build();
     }
+
+
 
 }

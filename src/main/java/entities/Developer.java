@@ -34,16 +34,16 @@ public class Developer {
     private Set<Project> projects = new LinkedHashSet<>();
 
     @OneToOne(mappedBy = "developer")
-    //@Column(name = "workoutID")//TODO: rename WorkoutID
     private User user;
 
     public Developer() {
     }
 
-    public Developer(String name, String phone, Double billingPrHour) {
+    public Developer(String name, String phone, Double billingPrHour, User user) {
         this.name = name;
         this.phone = phone;
         this.billingPrHour = billingPrHour;
+        this.user = user;
     }
 
     public Developer(DeveloperDTO developerDTO) {
@@ -52,6 +52,7 @@ public class Developer {
         this.name = developerDTO.getName();
         this.phone = developerDTO.getPhone();
         this.billingPrHour = developerDTO.getBillingPrHour();
+        this.user = developerDTO.getUser();
 
     }
 
