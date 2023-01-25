@@ -42,5 +42,18 @@ public class ProjectFacade {
 
     }
 
+    public ProjectDTO createProject(ProjectDTO projectDTO) {
+        Project project = new Project(projectDTO);
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(project);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new ProjectDTO(project);
+    }
+
 
 }

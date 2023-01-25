@@ -6,6 +6,7 @@ import dtos.ProjectDTO;
 import entities.*;
 import facades.ProjectFacade;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -23,7 +24,7 @@ import java.util.Set;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 
 public class ProjectResourceTest {
     private static final int SERVER_PORT = 7777;
@@ -38,7 +39,7 @@ public class ProjectResourceTest {
 
     Role user, admin;
     User user1, user2, user3;
-    Project p1, p2, p3, p4;
+    Project p1, p2, p3, p4, p5;
     Developer d1, d2, d3, d4;
     ProjectHours ph1, ph2, ph3;
 
@@ -101,6 +102,7 @@ public class ProjectResourceTest {
             p2 = new Project("Project2", "This is project 2");
             p3 = new Project("Project3", "This is project 3");
             p4 = new Project("Project4", "This is project 4");
+            p5 = new Project("Project5", "This is project 5");
 
             d1 = new Developer("Hans", "23456789", 350.0);
             d2 = new Developer("Yvonne", "23456780", 400.0);
@@ -168,6 +170,25 @@ public class ProjectResourceTest {
 
 
         assertThat(projectDTOS, containsInAnyOrder(new ProjectDTO(p1), new ProjectDTO(p2), new ProjectDTO(p3), new ProjectDTO(p4)));
+
+    }
+
+    @Test
+    public void testCreateProject() {
+        ProjectDTO projectDTO = new ProjectDTO(p5);
+        String requestBody = GSON.toJson(projectDTO);
+
+        given()
+                .header("Content-type", ContentType.JSON)
+                .and()
+                .body(requestBody)
+                .when()
+                .post("/projects")
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", notNullValue())
+                .body("name", equalTo("Project5"));
 
     }
 

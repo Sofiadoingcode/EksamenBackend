@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.ProjectDTO;
 import entities.*;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -17,7 +18,7 @@ public class ProjectFacadeTest {
 
     Role user, admin;
     User user1, user2, user3;
-    Project p1, p2, p3, p4;
+    Project p1, p2, p3, p4, p5;
     Developer d1, d2, d3, d4;
     ProjectHours ph1, ph2, ph3;
 
@@ -57,6 +58,7 @@ public class ProjectFacadeTest {
             p2 = new Project("Project2", "This is project 2");
             p3 = new Project("Project3", "This is project 3");
             p4 = new Project("Project4", "This is project 4");
+            p5 = new Project("Project5", "This is project 5");
 
             d1 = new Developer("Hans", "23456789", 350.0);
             d2 = new Developer("Yvonne", "23456780", 400.0);
@@ -111,6 +113,18 @@ public class ProjectFacadeTest {
         System.out.println("Testing");
         System.out.println(facade.getAllProjects());
         assertEquals(4, facade.getAllProjects().size());
+
+    }
+
+
+    @Test
+    public void testCreateProject(){
+        System.out.println("Testing create boat");
+        Project expected = p5;
+        ProjectDTO projectDTO = facade.createProject(new ProjectDTO(p5));
+        Project actual = new Project(projectDTO);
+
+        assertEquals(expected, actual);
 
     }
 
