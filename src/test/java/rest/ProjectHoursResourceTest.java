@@ -205,6 +205,26 @@ public class ProjectHoursResourceTest {
     }
 
     @Test
+    public void testUpdatePH() {
+        ph3.setHoursSpent(7.0);
+        ph3.setDescription("I am Updated");
+        ph3.setUserStory(4);
+        ProjectHoursDTO phDTO = new ProjectHoursDTO(ph3);
+        String requestBody = GSON.toJson(phDTO);
+
+        given()
+                .header("Content-type", ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .put("/ph/update/" + ph3.getId())
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", equalTo(ph3.getId().intValue()))
+                .body("description", equalTo("I am Updated"));
+    }
+
+    @Test
     public void testDeletePH() {
         given()
                 .contentType(ContentType.JSON)

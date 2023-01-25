@@ -39,6 +39,17 @@ public class ProjectHoursResource {
         return Response.ok().entity(GSON.toJson(phsDTOs)).build();
     }
 
+    @PUT
+    @Path("update/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response update(@PathParam("id") Long phID, String content) throws EntityNotFoundException {
+        ProjectHoursDTO phDTO = GSON.fromJson(content, ProjectHoursDTO.class);
+        phDTO.setId(phID);
+        ProjectHoursDTO updatedPHDTO = FACADE.updatePH(phDTO);
+        return Response.ok().entity(GSON.toJson(updatedPHDTO)).build();
+    }
+
 
 
     @DELETE
