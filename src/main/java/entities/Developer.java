@@ -33,7 +33,7 @@ public class Developer {
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<Project> projects = new LinkedHashSet<>();
 
-    @OneToOne(mappedBy = "developer")
+    @OneToOne(mappedBy = "developer", cascade = CascadeType.PERSIST)
     private User user;
 
     public Developer() {
@@ -43,7 +43,6 @@ public class Developer {
         this.name = name;
         this.phone = phone;
         this.billingPrHour = billingPrHour;
-        this.user = user;
     }
 
     public Developer(DeveloperDTO developerDTO) {
@@ -52,7 +51,7 @@ public class Developer {
         this.name = developerDTO.getName();
         this.phone = developerDTO.getPhone();
         this.billingPrHour = developerDTO.getBillingPrHour();
-        this.user = developerDTO.getUser();
+
 
     }
 

@@ -16,7 +16,7 @@ public class DeveloperDTO implements Serializable {
 
     private Double billingPrHour;
 
-    private User user;
+    private UserDTO userDTO;
 
 
     public DeveloperDTO () {
@@ -30,7 +30,6 @@ public class DeveloperDTO implements Serializable {
         this.name = developer.getName();
         this.phone = developer.getPhone();
         this.billingPrHour = developer.getBillingPrHour();
-        this.user = developer.getUser();
 
     }
 
@@ -67,12 +66,12 @@ public class DeveloperDTO implements Serializable {
         this.billingPrHour = billingPrHour;
     }
 
-    public User getUser() {
-        return user;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     @Override

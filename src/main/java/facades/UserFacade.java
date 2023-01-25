@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.UserDTO;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,6 +42,13 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+
+    public UserDTO getById(String id) //throws AccountNotFoundException
+    {
+        EntityManager em = emf.createEntityManager();
+        User user = em.find(User.class, id);
+        return new UserDTO(user);
     }
 
 }

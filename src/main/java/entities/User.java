@@ -3,9 +3,13 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import dtos.DeveloperDTO;
+import dtos.UserDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -40,7 +44,7 @@ public class User implements Serializable {
     return rolesAsStrings;
   }
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "developer_id", referencedColumnName = "id")
   private Developer developer;
 
@@ -55,6 +59,16 @@ public class User implements Serializable {
     this.userName = userName;
 
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+  }
+
+  public User(UserDTO userDTO) {
+    if (userDTO.getUserName() != null)
+      this.userName = userDTO.getUserName();
+    if (userDTO.getDeveloperDTO() != null) {
+      this.developer = new Developer(userDTO.getDeveloperDTO());
+      this.developer.setUser(this);
+    }
+
   }
 
 
@@ -94,4 +108,13 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
+    return Objects.equals(getUserName(), user.getUserName());
+  }
 }
+
+
