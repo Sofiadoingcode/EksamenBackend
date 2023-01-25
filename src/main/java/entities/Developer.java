@@ -20,7 +20,7 @@ public class Developer {
 
     private String phone;
 
-    private double billingPrHour;
+    private Double billingPrHour;
 
 
     @OneToMany(mappedBy = "developer")
@@ -33,6 +33,9 @@ public class Developer {
             inverseJoinColumns = @JoinColumn(name = "project_id"))
     private Set<Project> projects = new LinkedHashSet<>();
 
+    @OneToOne(mappedBy = "developer")
+    //@Column(name = "workoutID")//TODO: rename WorkoutID
+    private User user;
 
     public Developer() {
     }
@@ -86,6 +89,14 @@ public class Developer {
 
     public Set<ProjectHours> getProjectHours() {
         return projectHours;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void addProject(Project project) {

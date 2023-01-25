@@ -13,7 +13,7 @@ public class DeveloperDTO implements Serializable {
 
     private String phone;
 
-    private double billingPrHour;
+    private Double billingPrHour;
 
 
     public DeveloperDTO () {
@@ -55,7 +55,7 @@ public class DeveloperDTO implements Serializable {
         this.phone = phone;
     }
 
-    public double getBillingPrHour() {
+    public Double getBillingPrHour() {
         return billingPrHour;
     }
 
