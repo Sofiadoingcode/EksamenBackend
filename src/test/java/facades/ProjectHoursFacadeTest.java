@@ -9,6 +9,8 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProjectHoursFacadeTest {
@@ -130,6 +132,15 @@ public class ProjectHoursFacadeTest {
         ProjectHours actual = new ProjectHours(phDTO);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetProjectHoursOnProject(){
+        System.out.println("Testing");
+        List<ProjectHoursDTO> actual = facade.getAllPHFromProject(p1.getId());
+        System.out.println(actual);
+        assert(actual.contains(new ProjectHoursDTO(ph1)));
+        assert(actual.contains(new ProjectHoursDTO(ph2)));
     }
 
 

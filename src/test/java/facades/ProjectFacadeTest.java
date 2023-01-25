@@ -160,8 +160,6 @@ public class ProjectFacadeTest {
         System.out.println(actual);
         assert(actual.contains(new ProjectDTO(p1)));
 //        assert(actual.contains(new ProjectDTO(p2)));
-
-
     }
 
 

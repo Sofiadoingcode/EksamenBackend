@@ -32,9 +32,9 @@ public class DeveloperFacade {
 
     public DeveloperDTO getDeveloperFromUsername (String username) {
         EntityManager em = getEntityManager();
-        Query queryListBoats = em.createQuery("SELECT d FROM Developer d WHERE d.user.userName = :username ", Developer.class);
-        queryListBoats.setParameter("username", username);
-        List<Developer> listDeveloper = queryListBoats.getResultList();
+        Query queryListDevs = em.createQuery("SELECT d FROM Developer d WHERE d.user.userName = :username ", Developer.class);
+        queryListDevs.setParameter("username", username);
+        List<Developer> listDeveloper = queryListDevs.getResultList();
 
         return new DeveloperDTO(listDeveloper.get(0));
 

@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.DeveloperDTO;
 import dtos.ProjectDTO;
 import dtos.ProjectHoursDTO;
 import entities.Developer;
@@ -8,6 +9,9 @@ import entities.ProjectHours;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProjectHoursFacade {
     private static EntityManagerFactory emf;
@@ -27,6 +31,19 @@ public class ProjectHoursFacade {
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public List<ProjectHoursDTO> getAllPHFromProject(Long projectID) {
+            EntityManager em = getEntityManager();
+            Query queryListPHs = em.createQuery("SELECT ph FROM ProjectHours ph WHERE ph.project.id = :project_id ", ProjectHours.class);
+            queryListPHs.setParameter("project_id", projectID);
+            List<ProjectHours> listPHs = queryListPHs.getResultList();
+            List<ProjectHoursDTO> phs = new ArrayList<>();
+            for (int i = 0; i < listPHs.size(); i++) {
+                phs.add(new ProjectHoursDTO(listPHs.get(i)));
+            }
+            return phs;
+
     }
 
     public ProjectHoursDTO createProjectHours(ProjectHoursDTO phDTO, Long devID, Long projectID) {
