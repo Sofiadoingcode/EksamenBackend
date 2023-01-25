@@ -39,7 +39,7 @@ public class Developer {
     public Developer() {
     }
 
-    public Developer(String name, String phone, Double billingPrHour, User user) {
+    public Developer(String name, String phone, Double billingPrHour) {
         this.name = name;
         this.phone = phone;
         this.billingPrHour = billingPrHour;
