@@ -153,6 +153,14 @@ public class ProjectHoursFacadeTest {
     }
 
     @Test
+    public void testGetProjectHoursOnProjectandDev(){
+
+        List<ProjectHoursDTO> actual = facade.getAllPHFromProjectandDev(p1.getId(), d1.getId());
+        System.out.println(actual);
+        assert(actual.contains(new ProjectHoursDTO(ph1)));
+    }
+
+    @Test
     void testUpdatePH() throws EntityNotFoundException {
 
         ph3.setHoursSpent(7.0);
@@ -161,7 +169,7 @@ public class ProjectHoursFacadeTest {
 
         ProjectHours expected = ph3;
         ProjectHoursDTO phDTO = new ProjectHoursDTO(ph3);
-        ProjectHoursDTO actualPHDTO = facade.updatePH(phDTO);
+        ProjectHoursDTO actualPHDTO = facade.updatePH(phDTO, p2.getId(), d3.getId());
         ProjectHours actual = new ProjectHours(actualPHDTO);
 
         assertEquals(expected, actual);

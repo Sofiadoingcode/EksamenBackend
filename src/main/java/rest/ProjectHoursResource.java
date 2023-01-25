@@ -39,14 +39,22 @@ public class ProjectHoursResource {
         return Response.ok().entity(GSON.toJson(phsDTOs)).build();
     }
 
+    @GET
+    @Path("project/dev/{project_id}/{dev_id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllProjectHoursOnProjectAndDev(@PathParam("project_id") Long projectID, @PathParam("dev_id") Long devID) {
+        List<ProjectHoursDTO> phsDTOs= FACADE.getAllPHFromProjectandDev(projectID, devID);
+        return Response.ok().entity(GSON.toJson(phsDTOs)).build();
+    }
+
     @PUT
-    @Path("update/{id}")
+    @Path("update/{ph_id}/{project_id}/{dev_id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response update(@PathParam("id") Long phID, String content) throws EntityNotFoundException {
+    public Response update(@PathParam("ph_id") Long phID, @PathParam("project_id") Long projectID, @PathParam("dev_id") Long devID, String content) throws EntityNotFoundException {
         ProjectHoursDTO phDTO = GSON.fromJson(content, ProjectHoursDTO.class);
         phDTO.setId(phID);
-        ProjectHoursDTO updatedPHDTO = FACADE.updatePH(phDTO);
+        ProjectHoursDTO updatedPHDTO = FACADE.updatePH(phDTO, projectID, devID);
         return Response.ok().entity(GSON.toJson(updatedPHDTO)).build();
     }
 

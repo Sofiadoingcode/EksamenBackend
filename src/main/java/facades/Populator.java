@@ -47,6 +47,7 @@ public class Populator {
         ProjectHours ph1 = new ProjectHours(5, 1, "Pay this!", d1, p1);
         ProjectHours ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
         ProjectHours ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
+        ProjectHours ph4 = new ProjectHours(7, 6, "Pay this!", d3, p2);
 
 
 
@@ -86,6 +87,7 @@ public class Populator {
         em.persist(ph1);
         em.persist(ph2);
         em.persist(ph3);
+        em.persist(ph4);
 
 
         em.getTransaction().commit();

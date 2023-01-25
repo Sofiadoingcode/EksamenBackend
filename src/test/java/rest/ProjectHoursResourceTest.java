@@ -112,9 +112,9 @@ public class ProjectHoursResourceTest {
             d3 = new Developer("Lene", "23456781", 700.0);
             d4 = new Developer("Karl", "23456782", 150.0);
 
-            ph1 = new ProjectHours(5, 1, "Pay this!", d1, p1);
-            ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
-            ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
+            ph1 = new ProjectHours(5, 1, "Pay this!");
+            ph2 = new ProjectHours(3, 5, "Pay this!");
+            ph3 = new ProjectHours(2, 4, "Pay this!");
             ph4 = new ProjectHours(6, 4, "Pay this!");
 
 
@@ -134,6 +134,9 @@ public class ProjectHoursResourceTest {
             p1.addDeveloper(d1);
             p1.addDeveloper(d2);
             p2.addDeveloper(d3);
+
+            ph1.setProject(p1);
+            ph1.setDeveloper(d1);
 
             em.persist(d1);
             em.persist(d2);
@@ -201,7 +204,21 @@ public class ProjectHoursResourceTest {
                 .then()
                 .extract().body().jsonPath().getList("", ProjectHoursDTO.class);
 
-        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1), new ProjectHoursDTO(ph2)));
+        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1)));
+    }
+
+    @Test
+    public void testGetPHsFromProjectAndDev() throws Exception {
+        List<ProjectHoursDTO> projectHoursDTOS;
+
+        projectHoursDTOS = given()
+                .contentType("application/json")
+                .when()
+                .get("/ph/project/dev/" + p1.getId() + "/" + d1.getId())
+                .then()
+                .extract().body().jsonPath().getList("", ProjectHoursDTO.class);
+
+        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1)));
     }
 
     @Test
@@ -216,7 +233,7 @@ public class ProjectHoursResourceTest {
                 .header("Content-type", ContentType.JSON)
                 .body(requestBody)
                 .when()
-                .put("/ph/update/" + ph3.getId())
+                .put("/ph/update/" + ph3.getId() + "/" + p1.getId() + "/" + d2.getId())
                 .then()
                 .assertThat()
                 .statusCode(200)
