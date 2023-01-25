@@ -7,6 +7,7 @@ import facades.ProjectFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -34,6 +35,14 @@ public class ProjectResource {
         ProjectDTO projectDTO = GSON.fromJson(content, ProjectDTO.class);
         ProjectDTO projectDTO1 = FACADE.createProject(projectDTO);
         return Response.ok().entity(GSON.toJson(projectDTO1)).build();
+    }
+
+    @PUT
+    @Path("dev/{dev_id}/{project_id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response deleteBoat(@PathParam("dev_id") Long devID, @PathParam("project_id") Long projectID) throws EntityNotFoundException {
+        ProjectDTO updated = FACADE.addDeveloperToProject(devID, projectID);
+        return Response.ok().entity(GSON.toJson(updated)).build();
     }
 
 }

@@ -192,5 +192,23 @@ public class ProjectResourceTest {
 
     }
 
+    @Test
+    public void testAddDeveloperToProject() {
+        p3.addDeveloper(d4);
+        ProjectDTO projectDTO = new ProjectDTO(p3);
+        String requestBody = GSON.toJson(projectDTO);
+
+        given()
+                .header("Content-type", ContentType.JSON)
+                .body(requestBody)
+                .when()
+                .put("/projects/dev/"+d4.getId() + "/" + p3.getId())
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("id", equalTo(p3.getId().intValue()))
+                .body("name", equalTo("Project3"));
+    }
+
 
 }

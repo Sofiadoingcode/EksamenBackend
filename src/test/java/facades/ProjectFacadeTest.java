@@ -7,6 +7,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -125,8 +126,19 @@ public class ProjectFacadeTest {
         Project actual = new Project(projectDTO);
 
         assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void testConnectBoatWithHarbour() throws EntityNotFoundException {
+        System.out.println("Testing connect boat with harbour");
+        ProjectDTO projectDTO = facade.addDeveloperToProject(d4.getId(), p3.getId());
+
+        assertEquals(p3, new Project(projectDTO));
 
     }
+
+
 
 
 }

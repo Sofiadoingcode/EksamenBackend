@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.ProjectDTO;
+import entities.Developer;
 import entities.Project;
 
 import javax.persistence.EntityManager;
@@ -53,6 +54,25 @@ public class ProjectFacade {
             em.close();
         }
         return new ProjectDTO(project);
+    }
+
+    public ProjectDTO addDeveloperToProject(Long developerID, Long projectID) {
+        EntityManager em = getEntityManager();
+        Developer developer;
+        Project project;
+        try {
+            em.getTransaction().begin();
+            developer = em.find(Developer.class, developerID);
+            project = em.find(Project.class, projectID);
+            project.addDeveloper(developer);
+            em.merge(project);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
+        return new ProjectDTO(project);
+
     }
 
 
