@@ -1,10 +1,13 @@
 package dtos;
 
 import entities.Developer;
+import entities.ProjectHours;
 import entities.User;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class DeveloperDTO implements Serializable {
 
@@ -18,6 +21,8 @@ public class DeveloperDTO implements Serializable {
 
     private UserDTO userDTO;
 
+    private Set<ProjectHoursDTO> projectHours;
+
 
     public DeveloperDTO () {
 
@@ -30,7 +35,10 @@ public class DeveloperDTO implements Serializable {
         this.name = developer.getName();
         this.phone = developer.getPhone();
         this.billingPrHour = developer.getBillingPrHour();
-
+        this.projectHours = new HashSet<>();
+        for (ProjectHours ph : developer.getProjectHours()) {
+            this.projectHours.add(new ProjectHoursDTO(ph));
+        }
     }
 
 
@@ -72,6 +80,14 @@ public class DeveloperDTO implements Serializable {
 
     public void setUserDTO(UserDTO userDTO) {
         this.userDTO = userDTO;
+    }
+
+    public Set<ProjectHoursDTO> getProjectHours() {
+        return projectHours;
+    }
+
+    public void setProjectHours(Set<ProjectHoursDTO> projectHours) {
+        this.projectHours = projectHours;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package entities;
 
 import dtos.DeveloperDTO;
+import dtos.ProjectHoursDTO;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -51,7 +53,13 @@ public class Developer {
         this.name = developerDTO.getName();
         this.phone = developerDTO.getPhone();
         this.billingPrHour = developerDTO.getBillingPrHour();
-
+        this.projectHours = new HashSet<>();
+        if(developerDTO.getProjectHours()!=null)
+            for (ProjectHoursDTO projectHoursDTO : developerDTO.getProjectHours()) {
+                ProjectHours ph = new ProjectHours(projectHoursDTO);
+                ph.setDeveloper(this);
+                this.projectHours.add(ph);
+            }
 
     }
 

@@ -2,9 +2,12 @@ package dtos;
 
 import entities.Developer;
 import entities.Project;
+import entities.ProjectHours;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class ProjectDTO implements Serializable {
 
@@ -14,6 +17,8 @@ public class ProjectDTO implements Serializable {
 
     private String description;
 
+    private Set<ProjectHoursDTO> projectHours;
+
     public ProjectDTO() {
     }
 
@@ -22,6 +27,11 @@ public class ProjectDTO implements Serializable {
             this.id = project.getId();
         this.name = project.getName();
         this.description = project.getDescription();
+        this.projectHours = new HashSet<>();
+        if (project.getProjectHours() != null)
+            for (ProjectHours ph : project.getProjectHours()) {
+                this.projectHours.add(new ProjectHoursDTO(ph));
+        }
 
     }
 
@@ -47,6 +57,14 @@ public class ProjectDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<ProjectHoursDTO> getProjectHours() {
+        return projectHours;
+    }
+
+    public void setProjectHours(Set<ProjectHoursDTO> projectHours) {
+        this.projectHours = projectHours;
     }
 
     @Override

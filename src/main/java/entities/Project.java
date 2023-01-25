@@ -1,8 +1,10 @@
 package entities;
 
 import dtos.ProjectDTO;
+import dtos.ProjectHoursDTO;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -44,6 +46,13 @@ public class Project {
             this.id = projectDTO.getId();
         this.name = projectDTO.getName();
         this.description = projectDTO.getDescription();
+        this.projectHours = new HashSet<>();
+        if(projectDTO.getProjectHours()!=null)
+            for (ProjectHoursDTO projectHoursDTO : projectDTO.getProjectHours()) {
+                ProjectHours ph = new ProjectHours(projectHoursDTO);
+                ph.setProject(this);
+                this.projectHours.add(ph);
+            }
 
     }
 
