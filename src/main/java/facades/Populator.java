@@ -71,7 +71,7 @@ public class Populator {
         em.persist(ph1);
         em.persist(ph2);
         em.persist(ph3);
-        
+
 
         em.getTransaction().commit();
         em.close();
