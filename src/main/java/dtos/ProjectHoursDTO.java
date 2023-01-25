@@ -12,7 +12,7 @@ public class ProjectHoursDTO implements Serializable {
 
     private double hoursSpent;
 
-    private Long userStory;
+    private int userStory;
 
     private String description;
 
@@ -44,11 +44,11 @@ public class ProjectHoursDTO implements Serializable {
         this.hoursSpent = hoursSpent;
     }
 
-    public Long getUserStory() {
+    public int getUserStory() {
         return userStory;
     }
 
-    public void setUserStory(Long userStory) {
+    public void setUserStory(int userStory) {
         this.userStory = userStory;
     }
 

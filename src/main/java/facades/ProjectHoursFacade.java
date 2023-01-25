@@ -78,6 +78,21 @@ public class ProjectHoursFacade {
         return new ProjectHoursDTO(ph);
     }
 
+    public ProjectHoursDTO updatePH(ProjectHoursDTO phDTO) {
+        EntityManager em = getEntityManager();
+        ProjectHours ph = new ProjectHours(phDTO);
+        ProjectHoursDTO phUpdated;
+        try {
+            em.getTransaction().begin();
+            ProjectHours ph1 = em.merge(ph);
+            em.getTransaction().commit();
+            phUpdated = new ProjectHoursDTO(ph1);
+        } finally {
+            em.close();
+        }
+        return phUpdated;
+    }
+
     public ProjectHoursDTO deletePH(Long phID) {
         EntityManager em = getEntityManager();
         ProjectHoursDTO phDTO;

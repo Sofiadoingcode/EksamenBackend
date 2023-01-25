@@ -44,9 +44,9 @@ public class Populator {
         Developer d3 = new Developer("Lene", "23456781", 700.0);
         Developer d4 = new Developer("Karl", "23456782", 150.0);
 
-        ProjectHours ph1 = new ProjectHours(5, 1L, "Pay this!", d1, p1);
-        ProjectHours ph2 = new ProjectHours(3, 5L, "Pay this!", d2, p1);
-        ProjectHours ph3 = new ProjectHours(2, 4L, "Pay this!", d3, p2);
+        ProjectHours ph1 = new ProjectHours(5, 1, "Pay this!", d1, p1);
+        ProjectHours ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
+        ProjectHours ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
 
 
 

@@ -40,6 +40,7 @@ public class ProjectHoursResource {
     }
 
 
+
     @DELETE
     @Path("{id}")
     @Produces({MediaType.APPLICATION_JSON})

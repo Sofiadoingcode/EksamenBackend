@@ -16,7 +16,7 @@ public class ProjectHours {
 
     private double hoursSpent;
 
-    private Long userStory;
+    private int userStory;
 
     private String description;
 
@@ -31,13 +31,13 @@ public class ProjectHours {
     public ProjectHours() {
     }
 
-    public ProjectHours(double hoursSpent, Long userStory, String description) {
+    public ProjectHours(double hoursSpent, int userStory, String description) {
         this.hoursSpent = hoursSpent;
         this.userStory = userStory;
         this.description = description;
     }
 
-    public ProjectHours(double hoursSpent, Long userStory, String description, Developer developer, Project project) {
+    public ProjectHours(double hoursSpent, int userStory, String description, Developer developer, Project project) {
         this.hoursSpent = hoursSpent;
         this.userStory = userStory;
         this.description = description;
@@ -71,11 +71,11 @@ public class ProjectHours {
         this.hoursSpent = hoursSpent;
     }
 
-    public Long getUserStory() {
+    public int getUserStory() {
         return userStory;
     }
 
-    public void setUserStory(Long userStory) {
+    public void setUserStory(int userStory) {
         this.userStory = userStory;
     }
 
