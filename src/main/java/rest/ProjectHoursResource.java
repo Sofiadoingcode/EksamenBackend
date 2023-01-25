@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("ph")
 public class ProjectHoursResource {
@@ -27,5 +28,13 @@ public class ProjectHoursResource {
         ProjectHoursDTO projecthoursDTO = GSON.fromJson(content, ProjectHoursDTO.class);
         ProjectHoursDTO phDTO1 = FACADE.createProjectHours(projecthoursDTO, devID, projectID);
         return Response.ok().entity(GSON.toJson(phDTO1)).build();
+    }
+
+    @GET
+    @Path("project/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getAllBoatsInHarbour(@PathParam("id") Long projectID) {
+        List<ProjectHoursDTO> phsDTOs= FACADE.getAllPHFromProject(projectID);
+        return Response.ok().entity(GSON.toJson(phsDTOs)).build();
     }
 }

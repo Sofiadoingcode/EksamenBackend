@@ -20,10 +20,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class ProjectHoursResourceTest {
     private static final int SERVER_PORT = 7777;
@@ -187,6 +188,20 @@ public class ProjectHoursResourceTest {
                 .statusCode(200)
                 .body("id", notNullValue());
 
+    }
+
+    @Test
+    public void testGetPHsFromProject() throws Exception {
+        List<ProjectHoursDTO> projectHoursDTOS;
+
+        projectHoursDTOS = given()
+                .contentType("application/json")
+                .when()
+                .get("/ph/project/" + p1.getId())
+                .then()
+                .extract().body().jsonPath().getList("", ProjectHoursDTO.class);
+
+        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1), new ProjectHoursDTO(ph2)));
     }
 
 }
