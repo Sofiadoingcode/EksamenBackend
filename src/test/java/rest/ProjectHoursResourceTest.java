@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.MixProjectDTO;
 import dtos.ProjectDTO;
 import dtos.ProjectHoursDTO;
 import entities.*;
@@ -11,6 +12,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.*;
@@ -112,10 +114,11 @@ public class ProjectHoursResourceTest {
             d3 = new Developer("Lene", "23456781", 700.0);
             d4 = new Developer("Karl", "23456782", 150.0);
 
-            ph1 = new ProjectHours(5, 1, "Pay this!");
-            ph2 = new ProjectHours(3, 5, "Pay this!");
-            ph3 = new ProjectHours(2, 4, "Pay this!");
+            ph1 = new ProjectHours(5, 1, "Pay this!", d1, p1);
+            ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
+            ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
             ph4 = new ProjectHours(6, 4, "Pay this!");
+
 
 
             user1.addRole(user);
@@ -134,9 +137,6 @@ public class ProjectHoursResourceTest {
             p1.addDeveloper(d1);
             p1.addDeveloper(d2);
             p2.addDeveloper(d3);
-
-            ph1.setProject(p1);
-            ph1.setDeveloper(d1);
 
             em.persist(d1);
             em.persist(d2);
@@ -204,7 +204,7 @@ public class ProjectHoursResourceTest {
                 .then()
                 .extract().body().jsonPath().getList("", ProjectHoursDTO.class);
 
-        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1)));
+        assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1), new ProjectHoursDTO(ph2)));
     }
 
     @Test
@@ -220,6 +220,23 @@ public class ProjectHoursResourceTest {
 
         assertThat(projectHoursDTOS, containsInAnyOrder(new ProjectHoursDTO(ph1)));
     }
+
+//    @Test
+//    public void testGetStats() throws Exception {
+//        double totalhours = 8;
+//        double totalprice = 2950;
+//
+//        given()
+//                .contentType(ContentType.JSON)
+//                .get("ph/stats/{id}", p1.getId())
+//                .then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("totalHours", equalTo(totalhours))
+//                .body("totalPrice", equalTo(totalprice));
+//
+//
+//    }
 
     @Test
     public void testUpdatePH() {

@@ -1,6 +1,7 @@
 package facades;
 
 import dtos.DeveloperDTO;
+import dtos.MixProjectDTO;
 import dtos.ProjectDTO;
 import dtos.ProjectHoursDTO;
 import entities.Developer;
@@ -70,6 +71,43 @@ public class ProjectHoursFacade {
             phs.add(new ProjectHoursDTO(listPHs.get(i)));
         }
         return phs;
+
+    }
+
+    public double calculateAllHoursSpentOnProject(Long projectID) {
+        double totalHours = 0;
+        List<ProjectHoursDTO> phDTOS = getAllPHFromProject(projectID);
+
+        for(ProjectHoursDTO phDTO: phDTOS) {
+            totalHours += phDTO.getHoursSpent();
+
+        }
+
+        return totalHours;
+    }
+
+    public double calculateFullPriceOfProject(Long projectID) {
+        double totalPrice = 0;
+
+        List<DeveloperDTO> devDTOs = DeveloperFacade.getDeveloperFacade(emf).getAllDevelopersOnProject(projectID);
+        for(DeveloperDTO devDTO: devDTOs) {
+            List<ProjectHoursDTO> phDTOs = getAllPHFromProjectandDev(projectID, devDTO.getId());
+            for(ProjectHoursDTO phDTO: phDTOs) {
+                totalPrice += phDTO.getHoursSpent()*devDTO.getBillingPrHour();
+            }
+
+        }
+
+        return totalPrice;
+    }
+
+    public MixProjectDTO getProjectStatistics (Long projectID) {
+        double totalHours = calculateAllHoursSpentOnProject(projectID);
+        double totalPrice = calculateFullPriceOfProject(projectID);
+
+        MixProjectDTO mixProjectDTO = new MixProjectDTO(totalHours, totalPrice);
+
+        return mixProjectDTO;
 
     }
 

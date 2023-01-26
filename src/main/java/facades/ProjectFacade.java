@@ -1,8 +1,11 @@
 package facades;
 
+import dtos.MixProjectDTO;
 import dtos.ProjectDTO;
+import dtos.ProjectHoursDTO;
 import entities.Developer;
 import entities.Project;
+import entities.ProjectHours;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -88,6 +91,23 @@ public class ProjectFacade {
         return projects;
 
     }
+
+
+    public void calculate (Long projectID) {
+        EntityManager em = emf.createEntityManager();
+        List<ProjectHoursDTO> phList = ProjectHoursFacade.getProjectHoursFacade(emf).getAllPHFromProject(projectID);
+
+
+
+    }
+
+
+
+//    public MixProjectDTO getFullHoursAndPrice(Long projectID) {
+//
+//
+//
+//    }
 
 
 }

@@ -130,6 +130,15 @@ public class DeveloperFacadeTest {
 
     }
 
+    @Test
+    public void testGetDevsOnProject(){
+        System.out.println("Testing");
+        List<DeveloperDTO> actual = facade.getAllDevelopersOnProject(p1.getId());
+        System.out.println(actual);
+        assert(actual.contains(new DeveloperDTO(d1)));
+        assert(actual.contains(new DeveloperDTO(d2)));
+    }
+
 
 
 }

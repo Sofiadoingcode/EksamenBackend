@@ -1,7 +1,9 @@
 package facades;
 
 import dtos.DeveloperDTO;
+import dtos.ProjectDTO;
 import entities.Developer;
+import entities.Project;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -37,6 +39,20 @@ public class DeveloperFacade {
         List<Developer> listDeveloper = queryListDevs.getResultList();
 
         return new DeveloperDTO(listDeveloper.get(0));
+
+    }
+
+    public List<DeveloperDTO> getAllDevelopersOnProject(Long projectID) {
+        EntityManager em = emf.createEntityManager();
+        Query queryListProjects = em.createQuery("SELECT d FROM Developer d INNER JOIN d.projects p WHERE p.id = :project_id" , Developer.class);
+        queryListProjects.setParameter("project_id", projectID);
+        List<Developer> listDevs = queryListProjects.getResultList();
+
+        List<DeveloperDTO> developerDTOS = new ArrayList<>();
+        for (int i = 0; i < listDevs.size(); i++) {
+            developerDTOS.add(new DeveloperDTO(listDevs.get(i)));
+        }
+        return developerDTOS;
 
     }
 

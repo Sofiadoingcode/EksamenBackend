@@ -39,15 +39,20 @@ public class Populator {
         Project p3 = new Project("Project3", "This is project 3");
         Project p4 = new Project("Project4", "This is project 4");
 
+
         Developer d1 = new Developer("Hans", "23456789", 350.0);
         Developer d2 = new Developer("Yvonne", "23456780", 400.0);
         Developer d3 = new Developer("Lene", "23456781", 700.0);
         Developer d4 = new Developer("Karl", "23456782", 150.0);
 
-        ProjectHours ph1 = new ProjectHours(5, 1, "Pay this!", d1, p1);
-        ProjectHours ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
-        ProjectHours ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
-        ProjectHours ph4 = new ProjectHours(7, 6, "Pay this!", d3, p2);
+        ProjectHours ph1 = new ProjectHours(5, 1, "Pay this!");
+        ProjectHours ph2 = new ProjectHours(3, 5, "Pay this!");
+        ProjectHours ph3 = new ProjectHours(2, 4, "Pay this!");
+        ProjectHours ph4 = new ProjectHours(7, 6, "Pay this!");
+        ProjectHours ph5 = new ProjectHours(34, 2, "Pay this!");
+        ProjectHours ph6 = new ProjectHours(9, 7, "Pay this!");
+        ProjectHours ph7 = new ProjectHours(65, 12, "Pay this!");
+        ProjectHours ph8 = new ProjectHours(12, 2, "Pay this!");
 
 
 
@@ -65,8 +70,28 @@ public class Populator {
         user6.setDeveloper(d4);
 
         p1.addDeveloper(d1);
+        p2.addDeveloper(d1);
+        p3.addDeveloper(d1);
+        p4.addDeveloper(d1);
         p1.addDeveloper(d2);
         p2.addDeveloper(d3);
+
+        ph1.setProject(p1);
+        ph1.setDeveloper(d1);
+        ph2.setProject(p1);
+        ph2.setDeveloper(d1);
+        ph3.setProject(p1);
+        ph3.setDeveloper(d1);
+        ph4.setProject(p1);
+        ph4.setDeveloper(d1);
+        ph5.setProject(p2);
+        ph5.setDeveloper(d1);
+        ph6.setProject(p2);
+        ph6.setDeveloper(d1);
+        ph7.setProject(p3);
+        ph7.setDeveloper(d1);
+        ph8.setProject(p4);
+        ph8.setDeveloper(d1);
 
         em.persist(d1);
         em.persist(d2);
@@ -88,6 +113,10 @@ public class Populator {
         em.persist(ph2);
         em.persist(ph3);
         em.persist(ph4);
+        em.persist(ph5);
+        em.persist(ph6);
+        em.persist(ph7);
+        em.persist(ph8);
 
 
         em.getTransaction().commit();

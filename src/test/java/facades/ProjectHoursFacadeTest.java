@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.MixProjectDTO;
 import dtos.ProjectDTO;
 import dtos.ProjectHoursDTO;
 import entities.*;
@@ -23,6 +24,7 @@ public class ProjectHoursFacadeTest {
     Project p1, p2, p3, p4, p5;
     Developer d1, d2, d3, d4;
     ProjectHours ph1, ph2, ph3, ph4;
+    MixProjectDTO m1;
 
     public ProjectHoursFacadeTest() {
     }
@@ -74,6 +76,7 @@ public class ProjectHoursFacadeTest {
             ph2 = new ProjectHours(3, 5, "Pay this!", d2, p1);
             ph3 = new ProjectHours(2, 4, "Pay this!", d3, p2);
             ph4 = new ProjectHours(6, 4, "Pay this!");
+
 
 
             user1.addRole(user);
@@ -158,6 +161,30 @@ public class ProjectHoursFacadeTest {
         List<ProjectHoursDTO> actual = facade.getAllPHFromProjectandDev(p1.getId(), d1.getId());
         System.out.println(actual);
         assert(actual.contains(new ProjectHoursDTO(ph1)));
+    }
+
+    @Test
+    public void testCalculateAllHoursSpentOnProject() {
+        double actual = facade.calculateAllHoursSpentOnProject(p1.getId());
+        double expected = 8;
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testCalculateFullPriceOfProject() {
+        double actual = facade.calculateFullPriceOfProject(p1.getId());
+        double expected = 2950;
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testGetProjectStatistics() {
+        MixProjectDTO actual = facade.getProjectStatistics(p1.getId());
+        MixProjectDTO expected = new MixProjectDTO(8, 2950);
+        assertEquals(expected, actual);
+
     }
 
     @Test
