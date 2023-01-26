@@ -29,15 +29,15 @@ public class Populator {
         Role admin = new Role("admin");
         User user1 = new User("useradmin", "ua123");
         User user2 = new User("admin", "a123");
-        User user3 = new User("user", "u123");
+        User user3 = new User("ua", "u123");
         User user4 = new User("user1", "u123");
         User user5 = new User("user2", "u123");
         User user6 = new User("user3", "u123");
 
-        Project p1 = new Project("Project1", "This is project 1");
-        Project p2 = new Project("Project2", "This is project 2");
-        Project p3 = new Project("Project3", "This is project 3");
-        Project p4 = new Project("Project4", "This is project 4");
+        Project p1 = new Project("Cupcake Project", "Build a Cupcake Shop!");
+        Project p2 = new Project("Fog Project", "Let's build carports");
+        Project p3 = new Project("CA1", "HOBBIES");
+        Project p4 = new Project("ICE Project", "A cool card game!");
 
 
         Developer d1 = new Developer("Hans", "23456789", 350.0);
@@ -45,14 +45,14 @@ public class Populator {
         Developer d3 = new Developer("Lene", "23456781", 700.0);
         Developer d4 = new Developer("Karl", "23456782", 150.0);
 
-        ProjectHours ph1 = new ProjectHours(5, 1, "Pay this!");
-        ProjectHours ph2 = new ProjectHours(3, 5, "Pay this!");
-        ProjectHours ph3 = new ProjectHours(2, 4, "Pay this!");
-        ProjectHours ph4 = new ProjectHours(7, 6, "Pay this!");
-        ProjectHours ph5 = new ProjectHours(34, 2, "Pay this!");
-        ProjectHours ph6 = new ProjectHours(9, 7, "Pay this!");
-        ProjectHours ph7 = new ProjectHours(65, 12, "Pay this!");
-        ProjectHours ph8 = new ProjectHours(12, 2, "Pay this!");
+        ProjectHours ph1 = new ProjectHours(5, 1, "I'm planning to spend 10h");
+        ProjectHours ph2 = new ProjectHours(3, 5, "I'm planning to spend 15h");
+        ProjectHours ph3 = new ProjectHours(2, 4, "I'm planning to spend 16h");
+        ProjectHours ph4 = new ProjectHours(7, 6, "I'm planning to spend 8h");
+        ProjectHours ph5 = new ProjectHours(34, 2, "I'm planning to spend 20h");
+        ProjectHours ph6 = new ProjectHours(9, 7, "I'm planning to spend 3h");
+        ProjectHours ph7 = new ProjectHours(65, 12, "I'm planning to spend 100h");
+        ProjectHours ph8 = new ProjectHours(12, 2, "I'm planning to spend 40h");
 
 
 
@@ -60,6 +60,7 @@ public class Populator {
         user1.addRole(admin);
         user2.addRole(admin);
         user3.addRole(user);
+        user3.addRole(admin);
         user4.addRole(user);
         user5.addRole(user);
         user6.addRole(user);
