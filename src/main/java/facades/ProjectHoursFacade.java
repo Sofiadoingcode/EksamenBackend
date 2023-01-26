@@ -1,12 +1,10 @@
 package facades;
 
-import dtos.DeveloperDTO;
-import dtos.MixProjectDTO;
-import dtos.ProjectDTO;
-import dtos.ProjectHoursDTO;
+import dtos.*;
 import entities.Developer;
 import entities.Project;
 import entities.ProjectHours;
+import entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -99,6 +97,41 @@ public class ProjectHoursFacade {
         }
 
         return totalPrice;
+    }
+
+    public double calculateFullPriceOfOnePH(Long phID) {
+        double totalPrice = 0;
+        DeveloperDTO devDTO = getDevFromPH(phID);
+        ProjectHoursDTO phDTO = getById(phID);
+        totalPrice = devDTO.getBillingPrHour() * phDTO.getHoursSpent();
+
+        return totalPrice;
+    }
+
+    public PHMixDTO getPHStats (Long phID) {
+        double totalPH = calculateFullPriceOfOnePH(phID);
+
+        PHMixDTO phMixDTO = new PHMixDTO(totalPH);
+
+        return phMixDTO;
+
+    }
+
+    public DeveloperDTO getDevFromPH (Long phID) {
+        EntityManager em = getEntityManager();
+        ProjectHours ph = em.find(ProjectHours.class, phID);
+        DeveloperDTO devDTO = DeveloperFacade.getDeveloperFacade(emf).getById(ph.getDeveloper().getId());
+
+        return devDTO;
+
+    }
+
+    public ProjectHoursDTO getById(Long id) {
+        EntityManager em = emf.createEntityManager();
+
+        ProjectHours ph = em.find(ProjectHours.class, id);
+
+        return new ProjectHoursDTO(ph);
     }
 
     public MixProjectDTO getProjectStatistics (Long projectID) {

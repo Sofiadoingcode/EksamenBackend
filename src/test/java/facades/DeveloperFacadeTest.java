@@ -139,6 +139,17 @@ public class DeveloperFacadeTest {
         assert(actual.contains(new DeveloperDTO(d2)));
     }
 
+    @Test
+    public void getDevById() throws Exception {
+
+        Developer expected = d2;
+        DeveloperDTO devDTO = facade.getById(d2.getId());
+        Developer actual = new Developer(devDTO);
+
+        assertEquals(expected, actual);
+
+    }
+
 
 
 }

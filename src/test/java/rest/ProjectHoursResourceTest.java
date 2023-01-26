@@ -238,6 +238,21 @@ public class ProjectHoursResourceTest {
 //
 //    }
 
+//        @Test
+//    public void testGetStats() throws Exception {
+//        double totalPH = 1750;
+//
+//        given()
+//                .contentType(ContentType.JSON)
+//                .get("ph/stats/ph/{id}", ph1.getId())
+//                .then()
+//                .assertThat()
+//                .statusCode(HttpStatus.OK_200.getStatusCode())
+//                .body("totalPH", equalTo(totalPH));
+//
+//
+//    }
+
     @Test
     public void testUpdatePH() {
         ph3.setHoursSpent(7.0);

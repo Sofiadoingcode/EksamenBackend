@@ -1,8 +1,6 @@
 package facades;
 
-import dtos.MixProjectDTO;
-import dtos.ProjectDTO;
-import dtos.ProjectHoursDTO;
+import dtos.*;
 import entities.*;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -135,6 +133,28 @@ public class ProjectHoursFacadeTest {
 
     }
 
+    @Test
+    public void testGetPHById() throws Exception {
+
+        ProjectHours expected = ph1;
+        ProjectHoursDTO phDTO = facade.getById(ph1.getId());
+        ProjectHours actual = new ProjectHours(phDTO);
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testGetDevFromPH() {
+        Developer expected = d1;
+        DeveloperDTO devDTO = facade.getDevFromPH(ph1.getId());
+        Developer actual = new Developer(devDTO);
+
+        assertEquals(expected, actual);
+
+
+    }
+
 
     @Test
     public void testCreateProjectHours(){
@@ -180,11 +200,26 @@ public class ProjectHoursFacadeTest {
     }
 
     @Test
+    public void testCalculateFullPriceOfOnePH() {
+        double actual = facade.calculateFullPriceOfOnePH(ph1.getId());
+        double expected = 1750;
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
     public void testGetProjectStatistics() {
         MixProjectDTO actual = facade.getProjectStatistics(p1.getId());
         MixProjectDTO expected = new MixProjectDTO(8, 2950);
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void testGetPHStats() {
+        PHMixDTO actual = facade.getPHStats(ph1.getId());
+        PHMixDTO expected = new PHMixDTO(1750);
+        assertEquals(expected, actual);
     }
 
     @Test

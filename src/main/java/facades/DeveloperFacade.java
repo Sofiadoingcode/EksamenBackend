@@ -56,4 +56,13 @@ public class DeveloperFacade {
 
     }
 
+
+    public DeveloperDTO getById(Long id) {
+        EntityManager em = emf.createEntityManager();
+
+        Developer dev = em.find(Developer.class, id);
+
+        return new DeveloperDTO(dev);
+    }
+
 }

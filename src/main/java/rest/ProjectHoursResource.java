@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.MixProjectDTO;
+import dtos.PHMixDTO;
 import dtos.ProjectDTO;
 import dtos.ProjectHoursDTO;
 import facades.ProjectHoursFacade;
@@ -53,6 +54,14 @@ public class ProjectHoursResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getAllProjectHoursOnProjectAndDev(@PathParam("project_id") Long projectID) {
         MixProjectDTO mDTO = FACADE.getProjectStatistics(projectID);
+        return Response.ok().entity(GSON.toJson(mDTO)).build();
+    }
+
+    @GET
+    @Path("stats/ph/{ph_id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getDevFromPH(@PathParam("ph_id") Long phID) {
+        PHMixDTO mDTO = FACADE.getPHStats(phID);
         return Response.ok().entity(GSON.toJson(mDTO)).build();
     }
 
